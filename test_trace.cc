@@ -64,8 +64,8 @@ void test_MSR(std::string work_file) {
 
     // generate MRC
     start = std::chrono::high_resolution_clock::now();
-    size_t test_size = 1 << 39; // 512GB / 4096B / 
-    double *mrc = (double *)malloc(sizeof(double) * (test_size >> 5 + 10));
+    size_t test_size = 1 << 30;
+    double *mrc = (double *)malloc(sizeof(double) * (test_size * 16 + 10));
     assert(mrc != NULL);
     aetCalculateMRC(test_size, 32, mrc);
     end = std::chrono::high_resolution_clock::now();
