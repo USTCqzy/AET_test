@@ -13,11 +13,15 @@ INCLUDE_DIRECTORIES(${AETLIB_PATH})
 #   message(STATUS "dir='${dir}'")
 # endforeach()
 
-find_library(LIBAET libaet.so HINTS ${AETLIB_PATH})
-message(STATUS "LIBAET: ${LIBAET}")
+find_library(LIBAET-SO libaet.so HINTS ${AETLIB_PATH})
+message(STATUS "LIBAET-SO: ${LIBAET-SO}")
+
+find_library(LIBAET-A libaet.a PATHS ${AETLIB_PATH})
+message(STATUS "LIBAET-A: ${LIBAET-A}")
+
 
 ADD_EXECUTABLE(AET_test ${SRC_LIST})
-target_link_libraries(AET_test ${LIBAET})
+target_link_libraries(AET_test ${LIBAET-A} ${LIBAET-SO})
 
 
 
