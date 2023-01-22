@@ -1,0 +1,3 @@
+[submodule "AETLib"]
+	path = AETLib
+	url = https://github.com/USTCqzy/AETLib.git
