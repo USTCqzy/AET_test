@@ -64,10 +64,11 @@ void test_MSR(std::string work_file) {
 
     // generate MRC
     start = std::chrono::high_resolution_clock::now();
-    size_t test_size = 1 << 30;
-    double *mrc = (double *)malloc(sizeof(double) * (test_size * 16 + 10));
+    size_t test_size = 1 << 30; // 1G
+    double *mrc = (double *)malloc(sizeof(double) * (test_size * 2)); // 2GB 16GB
     assert(mrc != NULL);
-    aetCalculateMRC(test_size, 32, mrc);
+    aetCalculateMRC(test_size * 128, 64, mrc);
+    // aetCalculateMRC(test_size * 512, 256, mrc);
     end = std::chrono::high_resolution_clock::now();
     time = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
     printf("calculate MRC finished in %.3lf s\n", time);
@@ -75,8 +76,8 @@ void test_MSR(std::string work_file) {
 
     // print MRC
     int step = 1;
-    for (int i = 0; i < 1100 * 1000 * 1000; i = i + step, step = step * 1.5) {
-        printf("%d, %.3lf\n", i, mrc[i]);
+    for (size_t i = 0; i < (size_t)2048 * (size_t)(1024 * 1024); i = i + step, step = step * 2) {
+        printf("%zu, %.3lf\n", i, mrc[i]);
     }
     fflush(stdout);
 
